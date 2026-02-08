@@ -25,6 +25,24 @@ Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 - Web: search early; quote exact errors; prefer 2024–2026 sources.
 - Style: telegraph. Drop filler/grammar. Min tokens (global AGENTS + replies).
 
+## Docs Frontmatter Standard
+
+For every docs page, include YAML frontmatter with exactly: `summary`, `read_when`, `title`.
+
+- `title`: short, clear, Title Case.
+- `summary`: one concise sentence describing the page outcome/purpose.
+- `read_when`: 1–2 bullets from an agent trigger perspective (when to open this page during execution).
+- Avoid generic boilerplate (`"This page explains..."`); write action-oriented phrasing.
+
+Template:
+---
+summary: "Short outcome-focused summary"
+read_when:
+  - Trigger condition 1 for an executing agent
+  - Trigger condition 2 for an executing agent
+title: "Page Title"
+---
+
 ## Mission
 
 Ship correct, secure, maintainable software quickly by combining:
