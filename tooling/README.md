@@ -11,6 +11,33 @@ Document for each tool:
 
 ---
 
+## docs-list
+List markdown docs with `summary` and `read_when` metadata.
+
+**Location**: `tooling/docs-list`
+
+**Commands**:
+```bash
+docs-list
+cargo run --manifest-path tooling/docs-list/Cargo.toml
+cargo run --manifest-path tooling/docs-list/Cargo.toml | head -n 20
+```
+
+**Requirements**:
+- Run from repository root.
+- `docs/` directory must exist.
+
+**Failure modes**:
+- Exits with `docs:list: missing docs directory. Run from repo root.`
+- Exits with `docs:list: docs path is not a directory.`
+- Prints per-file metadata issues:
+  - `[missing front matter]`
+  - `[unterminated front matter]`
+  - `[summary key missing]`
+  - `[summary is empty]`
+
+---
+
 ## gh
 GitHub CLI for PRs, issues, CI, releases.
 
