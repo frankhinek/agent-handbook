@@ -25,6 +25,13 @@ Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 - Web: search early; quote exact errors; prefer 2024–2026 sources.
 - Style: telegraph. Drop filler/grammar. Min tokens (global AGENTS + replies).
 
+## Docs
+- Start: run docs list (`docs-list` binary if present; ignore if not installed); open docs before coding.
+- Follow links until domain makes sense; honor `Read when` hints.
+- Keep notes short; update docs when behavior/API changes (no ship w/o docs).
+- Add `read_when` hints on cross-cutting docs.
+- Model preference: latest only. OK: Anthropic Opus 4.6 / Sonnet 4.5 (Sonnet 3.5 = old; avoid), OpenAI GPT-5.2 / GPT-5.3-Codex, xAI Grok-4.1 Fast, Google Gemini 3 Flash.
+
 ## Docs Frontmatter Standard
 
 For every docs page, include YAML frontmatter with exactly: `summary`, `read_when`, `title`.
