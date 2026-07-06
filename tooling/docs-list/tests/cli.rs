@@ -123,6 +123,16 @@ fn lists_markdown_files_and_metadata_with_node_script_parity() {
     );
     write_file(
         temp.path(),
+        "docs/component.mdx",
+        "---\nsummary: Component docs\n---\nbody\n",
+    );
+    write_file(
+        temp.path(),
+        "docs/guide.MDX",
+        "---\nsummary: Uppercase MDX docs\n---\nbody\n",
+    );
+    write_file(
+        temp.path(),
         "docs/sub/c.md",
         "---\nsummary: 'Gamma summary'\nread_when: ['  react hooks ', 42, true, null, '', false]\n---\nbody\n",
     );
@@ -142,6 +152,16 @@ fn lists_markdown_files_and_metadata_with_node_script_parity() {
         "---\nread_when:\n  - should not print\n---\nbody\n",
     );
     write_file(temp.path(), "docs/no-frontmatter.md", "plain markdown");
+    write_file(
+        temp.path(),
+        "docs/scalar-double.md",
+        "---\nsummary: Scalar double\nread_when: \"double quoted hint\"\n---\nbody\n",
+    );
+    write_file(
+        temp.path(),
+        "docs/scalar-single.md",
+        "---\nsummary: Scalar single\nread_when: 'single quoted hint'\n---\nbody\n",
+    );
     write_file(
         temp.path(),
         "docs/archive/ignored.md",
@@ -176,14 +196,20 @@ fn lists_markdown_files_and_metadata_with_node_script_parity() {
     assert_eq!(
         String::from_utf8_lossy(&output.stdout),
         concat!(
-            "Listing all markdown files in docs folder:\n",
+            "Listing all Markdown/MDX files in docs folder:\n",
             "a.md - Alpha summary\n",
             "  Read when: first hint; second hint\n",
             "b.md - Beta summary\n",
             "bad-frontmatter.md - [unterminated front matter]\n",
+            "component.mdx - Component docs\n",
             "empty-summary.md - [summary is empty]\n",
+            "guide.MDX - Uppercase MDX docs\n",
             "missing-summary.md - [summary key missing]\n",
             "no-frontmatter.md - [missing front matter]\n",
+            "scalar-double.md - Scalar double\n",
+            "  Read when: double quoted hint\n",
+            "scalar-single.md - Scalar single\n",
+            "  Read when: single quoted hint\n",
             "sub/c.md - Gamma summary\n",
             "  Read when: react hooks; 42; true; false\n",
             "\n",

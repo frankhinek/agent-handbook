@@ -8,7 +8,7 @@ title: "docs-list Tool"
 
 # docs-list
 
-`docs-list` scans the repository `docs/` directory and prints markdown paths,
+`docs-list` scans the repository `docs/` directory and prints Markdown/MDX paths,
 summaries, and `read_when` hints.
 
 ## Run
@@ -26,5 +26,5 @@ cargo run --manifest-path tooling/docs-list/Cargo.toml
 ## Frontmatter Expectations
 
 - `summary` should be present and non-empty.
-- `read_when` can be a bullet list or inline array.
+- `read_when` can be a bullet list, inline array, or quoted scalar string.
 - Missing or malformed frontmatter is surfaced in output so gaps are obvious.

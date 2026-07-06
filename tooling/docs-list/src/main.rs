@@ -68,7 +68,7 @@ fn run() -> Result<(), AppError> {
     let stdout = io::stdout();
     let mut out = BufWriter::new(stdout.lock());
 
-    writeln!(out, "Listing all markdown files in docs folder:")?;
+    writeln!(out, "Listing all Markdown/MDX files in docs folder:")?;
     let markdown_files = walk_markdown_files(&docs_dir, &docs_dir)?;
 
     for relative_path in markdown_files {
@@ -110,7 +110,7 @@ fn walk_markdown_files(dir: &Path, base: &Path) -> io::Result<Vec<String>> {
                 continue;
             }
             files.extend(walk_markdown_files(&full_path, base)?);
-        } else if file_type.is_file() && name.ends_with(".md") {
+        } else if file_type.is_file() && is_docs_markdown_file(&name) {
             let relative = full_path.strip_prefix(base).unwrap_or(&full_path);
             files.push(path_to_slash_string(relative));
         }
@@ -118,6 +118,13 @@ fn walk_markdown_files(dir: &Path, base: &Path) -> io::Result<Vec<String>> {
 
     files.sort_by(|a, b| a.cmp(b));
     Ok(files)
+}
+
+fn is_docs_markdown_file(name: &str) -> bool {
+    matches!(
+        Path::new(name).extension().and_then(|extension| extension.to_str()),
+        Some(extension) if extension.eq_ignore_ascii_case("md") || extension.eq_ignore_ascii_case("mdx")
+    )
 }
 
 fn path_to_slash_string(path: &Path) -> String {
@@ -247,6 +254,10 @@ fn compact_strings(values: Vec<InlineValue>) -> Vec<String> {
 }
 
 fn parse_inline_read_when(inline: &str) -> Option<Vec<InlineValue>> {
+    if is_quoted_scalar(inline) {
+        return parse_inline_value(inline).map(|value| vec![value]);
+    }
+
     if !(inline.starts_with('[') && inline.ends_with(']')) {
         return None;
     }
@@ -259,6 +270,11 @@ fn parse_inline_read_when(inline: &str) -> Option<Vec<InlineValue>> {
         items.push(value);
     }
     Some(items)
+}
+
+fn is_quoted_scalar(value: &str) -> bool {
+    (value.starts_with('"') && value.ends_with('"'))
+        || (value.starts_with('\'') && value.ends_with('\''))
 }
 
 fn split_inline_array_items(input: &str) -> Option<Vec<String>> {

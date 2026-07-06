@@ -4,7 +4,7 @@ Rust CLI inspired by [OpenClaw's `docs-list.js`](https://github.com/openclaw/ope
 
 ## What It Does
 
-- Scans `./docs` recursively for markdown files.
+- Scans `./docs` recursively for Markdown and MDX files.
 - Skips hidden paths and excluded dirs (`archive`, `research`).
 - Reads frontmatter metadata:
   - `summary`
